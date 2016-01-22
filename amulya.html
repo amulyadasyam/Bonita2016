@@ -1,0 +1,52 @@
+<html>
+<head>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script>
+function fun1()
+{
+    $.ajax({
+    type: "POST",
+    url: "http://localhost:8080/bonita/loginservice?username=Initiator&password=bpm",
+    success: function(data){alert("Logged into Bonita");},
+    failure: function(errMsg) {
+        alert(errMsg);
+    }
+});
+}
+function fun2()
+{
+	alert("Entered fun2()"); 
+	var jsonInput = {orderName : $("#OrderName").val(), orderType : $("#OrderType").val(), circuitName : $("#CircuitName").val(), circuitType : $("#CircuitType").val(), dueDate : $("#DueDate").val(), product : $("#Product").val(), stateName : $("#State").val(), region : $("#Region").val()}; 
+	alert("Before Ajax call"+$("#OrderName").val());    
+$.ajax({
+    type: "POST",
+    url: "http://localhost:8080/bonita/API/bpm/process/5756017837381360347/instantiation",    
+    data: jsonInput,
+    contentType: "application/json; charset=utf-8",
+    dataType: "json",
+    //success: function(data){alert("Process Instantiated. Order details fed."); $('#CaseId').html("Process with Case Id "+data.caseId+" is instantiated.")},
+    success : alert("Json sent");    
+failure: function(errMsg) {
+        alert(errMsg);
+    }
+});
+}
+</script>
+</head>
+<body>
+<table>
+<tr><td><label> Order Name </label></td><td><input type="text" name="OrderName" id="OrderName"/> </td> </tr></br>
+<tr> <td><label> Order Type </label></td><td><input type="text" name="OrderType" id="OrderType"/> </td></tr></br>
+<tr> <td><label> Circuit Name </label></td><td><input type="text" name="CircuitName" id="CircuitName"/> </td></tr></br>
+<tr> <td><label> Circuit Type </label></td><td><input type="text" name="CircuitType" id="CircuitType"/> </td></tr></br>
+<tr> <td><label> Due Date </label></td><td><input type="text" name="DueDate" id="DueDate"/> </td></tr> </br>
+<tr> <td><label> Product </label></td><td><input type="text" name="Product" id="Product"/> </td></tr></br>
+<tr> <td><label> State </label></td><td><input type="text" name="State" id="State"/> </td></tr></br>
+<tr> <td><label> Region </label></td><td><input type="text" name="Region" id="Region"/> </td></tr></br>
+<tr> <td><input type="button" value="Log in" onClick="fun1()"/> </td>
+<td><input type="button" value="Send Order" onClick="fun2()"/> </td> </tr></br>
+<div id="CaseId"> </div>
+</p>
+</table>
+</body>
+</html>
